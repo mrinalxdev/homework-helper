@@ -56,6 +56,8 @@ def plot_function_and_integral(expression, lower_limit, upper_limit):
     y = f(x)
     
     plt.plot(x, y, label=f'Function: {expression}')
+    
+    # Fill area under the curve
     plt.fill_between(x, y, alpha=0.3)
     
     plt.title(f'Graph of {expression}')
@@ -114,21 +116,33 @@ def matrix_operations(matrix_str, operation):
     else:
         return "Invalid operation"
 
+def solve_3d_parabola(a, b, c):
+    x, y, z = sp.symbols('x y z')
+    equation = sp.Eq(z, a*x**2 + b*y**2 + c)
+    return equation
+
 if __name__ == "__main__":
-    print("Welcome to the enhanced mathematical solver!")
-    print("1: Solve an equation")
-    print("2: Evaluate an integral")
-    print("3: Differentiate a function")
-    print("4: Solve a system of equations")
-    print("5: Solve an inequality")
-    print("6: Plot a 3D graph")
-    print("7: Plot multiple functions")
-    print("8: Compute gradient of a function")
-    print("9: Compute divergence of a vector field")
-    print("10: Compute curl of a vector field")
-    print("11: Perform matrix operations")
-    print("12: Solve an ODE")
-    
+    print("Welcome to the sympy solver!")
+    print("We are here to solve your complex programs :))")
+    options = {
+        '1': "Solve an equation",
+        '2': "Evaluate an integral",
+        '3': "Differentiate a function",
+        '4': "Solve a system of equations",
+        '5': "Solve an inequality",
+        '6': "Plot a 3D graph",
+        '7': "Plot multiple functions",
+        '8': "Compute gradient of a function",
+        '9': "Compute divergence of a vector field",
+        '10': "Compute curl of a vector field",
+        '11': "Perform matrix operations",
+        '12': "Solve an ODE",
+        '13': "Solve and plot a 3D parabola"
+    }
+
+    for key, value in options.items():
+        print(f"{key}: {value}")
+
     choice = input("Choose an option: ")
 
     if choice == '1':
@@ -218,5 +232,14 @@ if __name__ == "__main__":
         independent_var_str = input("Enter the independent variable (e.g., x): ")
         equation, solution = solve_ode(equation_str, dependent_var_str, independent_var_str)
         print(f"The solution to the ODE {equation} is {solution}")
+    elif choice == '13':
+        a = float(input("Enter the coefficient a (e.g., 1): "))
+        b = float(input("Enter the coefficient b (e.g., 1): "))
+        c = float(input("Enter the constant c (e.g., 0): "))
+        equation = solve_3d_parabola(a, b, c)
+        print(f"The 3D parabola equation is: {equation}")
+        x_range = [float(x) for x in input("Enter the range for x as 'min max' (e.g., -5 5): ").split()]
+        y_range = [float(y) for y in input("Enter the range for y as 'min max' (e.g., -5 5): ").split()]
+        plot_3d_function(equation.rhs, x_range, y_range)
     else:
         print("Invalid choice")
