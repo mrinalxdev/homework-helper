@@ -56,8 +56,6 @@ def plot_function_and_integral(expression, lower_limit, upper_limit):
     y = f(x)
     
     plt.plot(x, y, label=f'Function: {expression}')
-    
-    # Fill area under the curve
     plt.fill_between(x, y, alpha=0.3)
     
     plt.title(f'Graph of {expression}')
